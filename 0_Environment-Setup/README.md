@@ -45,6 +45,10 @@ A bastion host is positioned between these two networks, acting as the secure br
 
 Within this private network, VMnet1 operates as Host-Only on 192.168.45.0/24, while VMnet8 runs in NAT mode on 192.168.200.0/24. In order to stable balance between isolation and external / temporary connectivity, DHCP is disabled on VMnet1 and enabled on VMnet8 initially.
 
+![VMnet1 Configuration](../screenshots/vmnet1.png)
+<br>
+
+![VMnet1 Configuration](../screenshots/vmnet1.png)
 
 This layered aims to ensure that the lab remains fully segregated from the physical LAN, while the bastion host and 2nd NAT firewall router enables safe management and selective outbound connectivity, when required.
 
