@@ -35,7 +35,8 @@ I tried to include in each section a screenshot of the subject to showcase bette
 ## 3. VMware Network Configuration
 
 The virtual environment is designed with two routing layers to ensure strong isolation and controlled access. 
-The first router is the main household LAN router, which provides internet connectivity. The second is an intermediate NAT router with a built-in firewall, responsible for creating a dedicated private network for all lab virtual machines.
+
+The first router is the main primary LAN router, which provides internet connectivity. The second one is an intermediate NAT router with a built-in firewall, responsible for creating a dedicated private network for all lab virtual machines.
 
 A bastion host is positioned between these two networks, acting as the secure bridge between the household LAN and the isolated lab segment. It provides controlled administrative SSH access without exposing internal systems directly.
 
