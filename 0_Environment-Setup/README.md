@@ -1,12 +1,10 @@
 # Environment Setup
 
 ## 1. Overview
-<br>
+
 This environment was created to serve as the foundation for all upcoming Windows Server configuration and hardening work. It runs locally on VMware Workstation using both a host-only and a NAT network to simulate a small enterprise setup. I've aimed to follow the most solid practices for server network architecture and their security.
 
-<br>
 The host-only network operates on 192.168.45.0/24, while the NAT network uses 192.168.200.0/24. The base system, named Windows Server (WS1), is a clean Windows Server 2019 installation that will later be cloned into other machines such as Domain Controller 1 (DC1) and Client/Member Server (MS1).
-<br>
 
 This document is organized into the following sections:
 
@@ -20,7 +18,6 @@ This document is organized into the following sections:
 
 - Systems verification: confirming the environment is ready.
 
-<br>
 
 I tried to include in each section a screenshot of the subject to showcase better.
 
@@ -43,7 +40,7 @@ The first router is the main household LAN router, which provides internet conne
 A bastion host is positioned between these two networks, acting as the secure bridge between the household LAN and the isolated lab segment. It provides controlled administrative SSH access without exposing internal systems directly.
 
 
-Within this private network, VMnet1 operates as Host-Only on 192.168.45.0/24, while VMnet8 runs in NAT mode on 192.168.200.0/24. In order to stable balance between isolation and external / temporary connectivity, DHCP is disabled on VMnet1 and enabled on VMnet8 initially.
+Within this private network, VMnet1 operates as Host-Only on 192.168.45.0/24, while VMnet8 runs in NAT mode on 192.168.200.0/24. In order to have a stable balance between isolation and external / temporary connectivity, DHCP is disabled on VMnet1 and enabled on VMnet8 initially.
 
 <p align="center">
   <img src="screenshots/vmnet1.png" alt="VMnet1 Configuration" width="600"><br>
