@@ -40,7 +40,6 @@ The first router is the main primary LAN router, which provides internet connect
 
 A bastion host is positioned between these two networks, acting as the secure bridge between the household LAN and the isolated lab segment. It provides controlled administrative SSH access without exposing internal systems directly.
 
-
 Within this private network, VMnet1 operates as Host-Only on 192.168.45.0/24, while VMnet8 runs in NAT mode on 192.168.200.0/24. In order to have a stable balance between isolation and external / temporary connectivity, DHCP is disabled on VMnet1 and enabled on VMnet8 initially.
 
 <p align="center">
@@ -59,18 +58,52 @@ Within this private network, VMnet1 operates as Host-Only on 192.168.45.0/24, wh
 This layered architecture aims to ensure that the lab remains fully segregated from the physical LAN, while the bastion host and 2nd NAT firewall router enables safe management and selective outbound connectivity, when required.
 
 ## 4. Windows Server Installation
-<br>
-To make summary of ISO source, product key, and base install steps.  
 
-*(Reference detailed guide in `Windows_Server_Installation.md`.)*
+The base virtual machine WS1 was deployed using the Windows Server 2019 ISO obtained from the [Azure Dev Tools for Teaching repository](https://azureforeducation.microsoft.com/devtools/). Installation followed the standard graphical setup, selecting the Desktop Experience edition to include a full GUI. Default disk partitioning was applied, and the assigned product key was entered during setup.
+
+
+After installation, the network adapter was temporarily switched to VMnet8 (NAT) mode, allowing outbound traffic through the host system’s firewall rather than exposing the VM directly to the physical LAN. During this phase, Windows Firewall was checked to be enabled, and administrative shares or RDP access to the LAN were disabled to minimize exposure.
+
+<p align="center">
+  <img src="screenshots/ws1.png" alt="WS1" width="600"><br>
+  <b>Image 3 – WS1</b>
+</p>
+
+Once updates were complete, the adapter was reverted to the host-only network to restore full isolation.
+
+Note: The WS1 virtual machine acts as the baseline image for subsequent systems (DC1, MS1 and additional ones) that will be cloned and reconfigured as part of later configuration stages.
 
 ## 5. Snapshot and Backup Strategy
-<br>
-To define when to snapshot and where to store VM copies for recovery.
+After completing the installation and configuration of WS1, a snapshot was created to preserve this clean baseline state. This snapshot, labeled “After Installation”, allows quick recovery if later configuration or testing introduces issues.
+
+Snapshots are stored locally on the same drive as the virtual machine, and ideally these also should be exported or backed up periodically to an external SSD or to the cloud. This would ensure recovery even in case of hardware failure.
+
+When major configuration milestones are reached (e.g., domain creation, security hardening), a new snapshot is taken and named accordingly for traceability.
+
+I kept at least two generations of snapshots: one stable baseline and one most recent configuration checkpoint.
 
 ## 6. Systems verification
-<br>
-to confirm the environment is operational 
+
+When switching from VMnet8 to 1, I realized that I still hadn't assigned a static IP address, therefore the VM got an APIPA one:
+
+
+<p align="center">
+  <img src="screenshots/apipa.png" alt="APIPA" width="600"><br>
+  <b>Image 4 – APIPA address</b>
+</p>
+
+Quicky after the change:
+
+<p align="center">
+  <img src="screenshots/tcpip4.png" alt="TCP/IPv4 properties" width="600"><br>
+  <b>Image 4 – TCP/IPv4 properties</b>
+</p>
+
+<p align="center">
+  <img src="screenshots/ip4.png" alt="IPv4 address" width="600"><br>
+  <b>Image 4 – IPv4 address</b>
+</p>
+
 
 ## 8. Notes & References
 Additional remarks, version notes, and official documentation links.
