@@ -108,7 +108,7 @@ Quicky after the change:
 
 <p align="center">
   <img src="screenshots/ip4.png" alt="IPv4 address" width="600"><br>
-  <b>Image 4 – IPv4 address</b>
+  <b>Image 7 – IPv4 address</b>
 </p>
 
 
