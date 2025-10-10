@@ -71,7 +71,14 @@ After installation, the network adapter was temporarily switched to VMnet8 (NAT)
 
 Once updates were complete, the adapter was reverted to the host-only network to restore full isolation.
 
-Note: The WS1 virtual machine acts as the baseline image for subsequent systems (DC1, MS1 and additional ones) that will be cloned and reconfigured as part of later configuration stages.
+
+<p align="center">
+  <img src="screenshots/sm.png" alt="APIPA" width="600"><br>
+  <b>Image 4 – Server Manager dashboard</b>
+</p>
+
+
+This WS1 virtual machine will act as the baseline image for subsequent systems - DC1, MS1 and additional ones - that will be cloned and reconfigured as part of later configuration stages.
 
 ## 5. Snapshot and Backup Strategy
 After completing the installation and configuration of WS1, a snapshot was created to preserve this clean baseline state. This snapshot, labeled “After Installation”, allows quick recovery if later configuration or testing introduces issues.
@@ -89,14 +96,14 @@ When switching from VMnet8 to 1, I realized that I still hadn't assigned a stati
 
 <p align="center">
   <img src="screenshots/apipa.png" alt="APIPA" width="600"><br>
-  <b>Image 4 – APIPA address</b>
+  <b>Image 5 – APIPA address</b>
 </p>
 
 Quicky after the change:
 
 <p align="center">
   <img src="screenshots/tcpip4.png" alt="TCP/IPv4 properties" width="600"><br>
-  <b>Image 4 – TCP/IPv4 properties</b>
+  <b>Image 6 – TCP/IPv4 properties</b>
 </p>
 
 <p align="center">
