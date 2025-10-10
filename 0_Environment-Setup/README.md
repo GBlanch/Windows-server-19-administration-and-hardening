@@ -61,17 +61,15 @@ This layered architecture aims to ensure that the lab remains fully segregated f
 
 The base virtual machine WS1 was deployed using the Windows Server 2019 ISO obtained from the [Azure Dev Tools for Teaching repository](https://azureforeducation.microsoft.com/devtools/). Installation followed the standard graphical setup, selecting the Desktop Experience edition to include a full GUI. Default disk partitioning was applied, and the assigned product key was entered during setup.
 
-
-After installation, the network adapter was temporarily switched to VMnet8 (NAT) mode, allowing outbound traffic through the host system’s firewall rather than exposing the VM directly to the physical LAN. During this phase, Windows Firewall was checked to be enabled, and administrative shares or RDP access to the LAN were disabled to minimize exposure. 
-
-Once updates were complete, the adapter was reverted to the host-only network to restore full isolation.
-
 <p align="center">
   <img src="screenshots/ws1.png" alt="WS1" width="600"><br>
   <b>Image 3 – WS1</b>
 </p>
 
 
+After installation, the network adapter was temporarily switched to VMnet8 (NAT) mode, allowing outbound traffic through the host system’s firewall rather than exposing the VM directly to the physical LAN. During this phase, Windows Firewall was checked to be enabled, and administrative shares or RDP access to the LAN were disabled to minimize exposure. 
+
+Once updates were complete, the adapter was reverted to the host-only network to restore full isolation.
 
 
 <p align="center">
