@@ -1,54 +1,74 @@
 # Environment Setup
 
 ## 1. Overview
-
-This environment was created to serve as the foundation for all upcoming Windows Server configuration and hardening work. It runs locally on VMware Workstation using both a host-only and a NAT network to simulate a small enterprise setup. I've aimed to follow the most solid practices for server network architecture and their security.
-
-The host-only network operates on 192.168.45.0/24, while the NAT network uses 192.168.200.0/24. The base system, named Windows Server (WS1), is a clean Windows Server 2019 installation that will later be cloned into other machines such as Domain Controller 1 (DC1) and Client/Member Server (MS1).
-
-This document is organized into the following sections:
-
-- System Requirements: hardware and software prerequisites.
-
-- VMware Network Configuration: details of the virtual network setup.
-
-- Windows Server Installation: installation process and base system notes.
-
-- Snapshot and Backup Strategy: methods to preserve configuration states.
-
-- Systems verification: confirming the environment is ready.
+This section documents the setup and configuration of Windows Server 2019 for domain administration.
+The process includes creating and configuring a domain controller (DC1), joining a Windows 10 client (MS1) to the domain, and performing a 101 compliance baseline using Microsoft’s Security Compliance Toolkit.
 
 
-I tried to include in each section a screenshot of the subject to showcase better.
+All configurations were completed in a secure, isolated VMware environment, following best practices for system hardening and data protection that were mentioned in the previous section 0_Environment-Setup.
 
 ## 2. Domain Controller configuration 
 
-d
+To begin the server configuration, the base image WS1 was duplicated to create a new virtual machine named DC1. The cloning process was performed in VMware Workstation using a full clone, ensuring that the resulting instance was completely independent from the source. Once the operation completed, the virtual hardware and folder paths were verified to confirm that DC1 could operate autonomously within the isolated lab network.
+
+<p align="center">
+  <img src="screenshots/vm_dc1.png" alt="VMware Inventory View" width="600"><br>
+  <b>Image 1 – VMware Inventory View with DC devices</b>
+</p>
+
+
+After powering on the new system, the local Administrator account was used to sign in and modify the computer name from WS1 to DC1 through System Properties. A restart followed to apply the change, allowing the system to broadcast its new identity across the internal network.
+
+The next step consisted of assigning static network parameters to guarantee consistent connectivity within the 192.168.45.0/24 segment. The IP address 192.168.45.10 was selected for DC1 with a subnet mask of 255.255.255.0. Because this server would later host DNS services, the preferred DNS was temporarily set to the loopback address 127.0.0.1. 
+
+
+<p align="center">
+  <img src="screenshots/dc1.png" alt="VMware Inventory View" width="600"><br>
+  <b>Image 2 – Hostname and Windows IP configuration</b>
+</p>
+
+
 
 ## 3. DC1 promotion as Domain Controller
 
-The virtual environment is designed with two routing layers to ensure strong isolation and controlled access. 
+With DC1 fully prepared and network settings verified, the next step was to install and configure Active Directory Domain Services (AD DS) so the server could function as a domain controller. 
 
-The first router is the main primary LAN router, which provides internet connectivity. The second one is an intermediate NAT router with a built-in firewall, responsible for creating a dedicated private network for all lab virtual machines.
+The installation began from Server Manager, using the Add Roles and Features wizard. After launching the wizard, the role Active Directory Domain Services was selected, while all default features were left enabled. Once installation completed successfully, a notification appeared in Server Manager prompting for post-deployment configuration.
 
-A bastion host is positioned between these two networks, acting as the secure bridge between the household LAN and the isolated lab segment. It provides controlled administrative SSH access without exposing internal systems directly.
-
-Within this private network, VMnet1 operates as Host-Only on 192.168.45.0/24, while VMnet8 runs in NAT mode on 192.168.200.0/24. In order to have a stable balance between isolation and external / temporary connectivity, DHCP is disabled on VMnet1 and enabled on VMnet8 initially.
 
 <p align="center">
-  <img src="screenshots/vmnet1.png" alt="VMnet1 Configuration" width="600"><br>
-  <b>Image 1 – VMnet1 Configuration</b>
+  <img src="screenshots/server-roles.png" alt="VMware Inventory View" width="400"><br>
+  <b>Image 3 – Server Roles selection</b>
 </p>
 
 
-<br>
+The configuration wizard was then used to promote the server. Since this was the first domain in the lab environment, a new forest was created using the namespace _PII.local_. In the NetBIOS name field, the prefix “S” was added before the student number. The remaining settings were left at their defaults, including database, log, and SYSVOL locations.
 
 <p align="center">
-  <img src="screenshots/vmnet8.png" alt="VMnet8 Configuration" width="600"><br>
-  <b>Image 2 – VMnet8 Configuration</b>
+  <img src="screenshots/sysprop.png" alt="VMware Inventory View" width="350"><br>
+  <b>Image 4 – System Properties</b>
 </p>
 
-This layered architecture aims to ensure that the lab remains fully segregated from the physical LAN, while the bastion host and 2nd NAT firewall router enables safe management and selective outbound connectivity, when required.
+
+During the promotion process, a Directory Services Restore Mode (DSRM) password was specified that met complexity requirements: uppercase, lowercase, numeric characters, and at least six characters in total. Once confirmed, the wizard validated prerequisites and prompted for a restart to complete the operation.
+
+After reboot, DC1 automatically booted into domain mode, and the login screen reflected the new domain context, confirming successful promotion. Signing in with the domain Administrator account opened Server Manager, where the AD DS dashboard now showed the server listed as a domain controller.
+
+
+<p align="center">
+  <img src="screenshots/ad-ds.png" alt="VMware Inventory View" width="400"><br>
+  <b>Image 5 – AD DS Manager dashboard</b>
+</p>
+
+
+Finally, a brief inspection of Active Directory Users and Computers confirmed the domain structure. The forest name hierarchy was visible with default containers such as Users, Computers, and Domain Controllers. This verification step ensured that replication and policy services were initialized correctly and that DC1 was ready to host domain operations for subsequent configuration tasks.
+
+<p align="center">
+  <img src="screenshots/aduc.png" alt="VMware Inventory View" width="400"><br>
+  <b>Image 6 – Active Directory Users and Computers  </b>
+</p>
+
+
 
 ## 4. Client/Member Server configuration 
 
@@ -66,7 +86,7 @@ Once updates were complete, the adapter was reverted to the host-only network to
 
 
 <p align="center">
-  <img src="screenshots/sm.png" alt="APIPA" width="600"><br>
+  <img src="screenshots/sm.png" alt="APIPA" width="400"><br>
   <b>Image 4 – Server Manager dashboard</b>
 </p>
 
