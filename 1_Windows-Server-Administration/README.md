@@ -56,7 +56,7 @@ After reboot, DC1 automatically booted into domain mode, and the login screen re
 
 
 <p align="center">
-  <img src="screenshots/ad-ds.png" alt="VMware Inventory View" width="600"><br>
+  <img src="screenshots/ad-ds.png" alt="VMware Inventory View" width="800"><br>
   <b>Image 5 – AD DS Manager dashboard</b>
 </p>
 
@@ -64,7 +64,7 @@ After reboot, DC1 automatically booted into domain mode, and the login screen re
 Finally, a brief inspection of Active Directory Users and Computers confirmed the domain structure. The forest name hierarchy was visible with default containers such as Users, Computers, and Domain Controllers. This verification step ensured that replication and policy services were initialized correctly and that DC1 was ready to host domain operations for subsequent configuration tasks.
 
 <p align="center">
-  <img src="screenshots/aduc.png" alt="VMware Inventory View" width="600"><br>
+  <img src="screenshots/aduc.png" alt="VMware Inventory View" width="800"><br>
   <b>Image 6 – Active Directory Users and Computers  </b>
 </p>
 
