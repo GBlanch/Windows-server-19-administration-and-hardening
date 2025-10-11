@@ -37,7 +37,7 @@ The installation began from Server Manager, using the Add Roles and Features wiz
 
 
 <p align="center">
-  <img src="screenshots/server-roles.png" alt="VMware Inventory View" width="400"><br>
+  <img src="screenshots/server-roles.png" alt="VMware Inventory View" width="600"><br>
   <b>Image 3 – Server Roles selection</b>
 </p>
 
@@ -45,7 +45,7 @@ The installation began from Server Manager, using the Add Roles and Features wiz
 The configuration wizard was then used to promote the server. Since this was the first domain in the lab environment, a new forest was created using the namespace _PII.local_. In the NetBIOS name field, the prefix “S” was added before the student number. The remaining settings were left at their defaults, including database, log, and SYSVOL locations.
 
 <p align="center">
-  <img src="screenshots/sysprop.png" alt="VMware Inventory View" width="350"><br>
+  <img src="screenshots/sysprop.png" alt="VMware Inventory View" width="600"><br>
   <b>Image 4 – System Properties</b>
 </p>
 
@@ -56,7 +56,7 @@ After reboot, DC1 automatically booted into domain mode, and the login screen re
 
 
 <p align="center">
-  <img src="screenshots/ad-ds.png" alt="VMware Inventory View" width="400"><br>
+  <img src="screenshots/ad-ds.png" alt="VMware Inventory View" width="600"><br>
   <b>Image 5 – AD DS Manager dashboard</b>
 </p>
 
@@ -64,7 +64,7 @@ After reboot, DC1 automatically booted into domain mode, and the login screen re
 Finally, a brief inspection of Active Directory Users and Computers confirmed the domain structure. The forest name hierarchy was visible with default containers such as Users, Computers, and Domain Controllers. This verification step ensured that replication and policy services were initialized correctly and that DC1 was ready to host domain operations for subsequent configuration tasks.
 
 <p align="center">
-  <img src="screenshots/aduc.png" alt="VMware Inventory View" width="400"><br>
+  <img src="screenshots/aduc.png" alt="VMware Inventory View" width="600"><br>
   <b>Image 6 – Active Directory Users and Computers  </b>
 </p>
 
