@@ -61,59 +61,23 @@ This layered architecture aims to ensure that the lab remains fully segregated f
 
 ## 4. Client/Member Server configuration 
 
-The base virtual machine WS1 was deployed using the Windows Server 2019 ISO obtained from the [Azure Dev Tools for Teaching repository](https://azureforeducation.microsoft.com/devtools/). Installation followed the standard graphical setup, selecting the Desktop Experience edition to include a full GUI. Default disk partitioning was applied, and the assigned product key was entered during setup.
+Following the successful configuration of DC1, the Windows 10 workstation was prepared to function as a domain member. The virtual machine was renamed MS1 and configured with an IP address corresponding to the network topology. The preferred DNS setting was updated to reference DC1’s address, ensuring proper name resolution and communication with the domain services.
 
-<p align="center">
-  <img src="screenshots/ws1.png" alt="WS1" width="600"><br>
-  <b>Image 3 – WS1</b>
-</p>
+Once the network connectivity was confirmed, MS1 was joined to the domain via the System Properties interface. Authentication was carried out using the domain administrator credentials, validating the connection and enabling domain-based login. The workstation was successfully integrated into the domain, gaining access to centralized authentication, Group Policy management, and future administrative oversight through Active Directory.
 
-
-After installation, the network adapter was temporarily switched to VMnet8 (NAT) mode, allowing outbound traffic through the host system’s firewall rather than exposing the VM directly to the physical LAN. During this phase, Windows Firewall was checked to be enabled, and administrative shares or RDP access to the LAN were disabled to minimize exposure. 
-
-Once updates were complete, the adapter was reverted to the host-only network to restore full isolation.
-
-
-<p align="center">
-  <img src="screenshots/sm.png" alt="APIPA" width="600"><br>
-  <b>Image 4 – Server Manager dashboard</b>
-</p>
-
-
-This WS1 virtual machine will act as the baseline image for subsequent systems - DC1, MS1 and additional ones - that will be cloned and reconfigured as part of later configuration stages.
 
 ## 5. Systems verification
 
-After completing the installation and configuration of WS1, a snapshot was created to preserve this clean baseline state. This snapshot, labeled “After Installation”, allows quick recovery if later configuration or testing introduces issues.
+Once both systems were configured, network connectivity and authentication functionality were verified. Basic connectivity tests confirmed that DC1 responded to ICMP requests from MS1, validating the static IP configuration and DNS resolution path. The successful login using a domain account demonstrated that authentication requests were properly routed through the domain controller.
 
-Snapshots are stored locally on the same drive as the virtual machine, and ideally these also should be exported or backed up periodically to an external SSD or to the cloud. This would ensure recovery even in case of hardware failure.
-
-When major configuration milestones are reached (e.g., domain creation, security hardening), a new snapshot is taken and named accordingly for traceability.
-
-I kept at least two generations of snapshots: one stable baseline and one most recent configuration checkpoint.
+At this stage, both the administrative server and the client workstation were operating within the same logical network, with DC1 handling directory services and MS1 functioning as an authenticated member system. This verification step ensured that all core services, including DNS, were properly synchronized and operational.
 
 ## 6. Compliance and Baseline Analysis
 
-When switching from VMnet8 to 1, I realized that I still hadn't assigned a static IP address, therefore the VM got an APIPA one:
+After confirming system functionality, the Microsoft Security Compliance Toolkit was employed to perform a baseline configuration analysis. This toolkit allowed a comprehensive evaluation of both DC1 and MS1 in comparison with Microsoft’s recommended security standards.
 
+A temporary NAT-enabled network adapter was added to the virtual machines to facilitate system updates and baseline downloads. Windows Defender was activated and updated, followed by a full system update to align both systems with current security definitions. Using the toolkit, baseline configurations were imported and compared against the Microsoft reference baselines for Windows Server 2016 and Windows 10. The comparative analysis provided insights into configuration gaps, highlighting key differences between the default setup and Microsoft’s secure baseline recommendations.
 
-<p align="center">
-  <img src="screenshots/apipa.png" alt="APIPA" width="600"><br>
-  <b>Image 5 – APIPA address</b>
-</p>
+<p align="center"> <img src="screenshots/compliance_baseline.png" alt="Security Compliance Toolkit Command Syntax" width="600"><br> <b>Screenshot 4 – Security Compliance Toolkit Command Syntax</b> </p>
 
-Quicky after the change:
-
-<p align="center">
-  <img src="screenshots/tcpip4.png" alt="TCP/IPv4 properties" width="600"><br>
-  <b>Image 6 – TCP/IPv4 properties</b>
-</p>
-
-<p align="center">
-  <img src="screenshots/ip4.png" alt="IPv4 address" width="600"><br>
-  <b>Image 7 – IPv4 address</b>
-</p>
-
-
-## 8. Notes & References
-Additional remarks, version notes, and official documentation links.
+Upon completing the analysis, new system snapshots were taken to preserve the stable and verified configuration state. This step ensured that future modifications could be safely reverted if necessary. 
