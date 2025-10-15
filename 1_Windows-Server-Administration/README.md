@@ -15,11 +15,11 @@ To begin the DC1 server configuration, the base image WS1 was duplicated to crea
 
 Once the operation completed, the virtual hardware and folder paths were verified to confirm that DC1 could operate autonomously within the isolated lab network.
 
-<p align="center"> <img src="screenshots/vm_dc1.png" alt="VMware Inventory View" width="300"><br> <b>Image 1 – VMware Inventory View</b> </p>
+<p align="center"> <img src="screenshots/vm_dc1.png" alt="VMware Inventory View" width="600"><br> <b>Image 1 – VMware Inventory View</b> </p>
 
 After powering on the new system, the local Administrator account was used to sign in and modify the computer name from WS1 to DC1 through System Properties. A restart followed to apply the change, allowing the system to broadcast its new identity across the internal network.
 
-<p align="center"> <img src="screenshots/sysprop.png" alt="System Properties showing DC1 configuration" width="300"><br> <b>Image 2 – System Properties </b> </p>
+<p align="center"> <img src="screenshots/sysprop.png" alt="System Properties showing DC1 configuration" width="600"><br> <b>Image 2 – System Properties </b> </p>
 
 The next step consisted of assigning static network parameters to guarantee consistent connectivity within the 192.168.45.0/24 segment. The IP address 192.168.45.10 was selected for DC1 with a subnet mask of 255.255.255.0. Because this server would later host DNS services, the preferred DNS was temporarily set to the loopback address 127.0.0.1.
 
