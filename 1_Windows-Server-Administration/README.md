@@ -1,5 +1,4 @@
-# Environment Setup
-
+# Windows server administration
 ## 1. Overview
 
 This section documents the setup and configuration of Windows Server 2019 for domain administration.
