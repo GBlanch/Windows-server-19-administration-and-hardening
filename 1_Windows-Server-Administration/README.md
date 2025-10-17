@@ -26,11 +26,11 @@ Finally, the system state was validated in Server Manager. The Local Server summ
 
 At this point, DC1 was fully prepared for the installation of Active Directory Domain Services and promotion to a domain controller in the following phase.
 
-<p align="center"> <img src="screenshots/server-roles.png" alt="Server Roles selection in Server Manager" width="600"><br> <b>Image 3 – Server Roles Configuration</b> </p> 
+<p align="center"> <img src="screenshots/server-roles.png" alt="Server Roles selection in Server Manager" width="700"><br> <b>Image 3 – Server Roles Configuration</b> </p> 
 
-<p align="center"> <img src="screenshots/aduc.png" alt="Active Directory Users and Computers console" width="600"><br> <b>Image 4 – Active Directory Users and Computers</b> </p> 
+<p align="center"> <img src="screenshots/aduc.png" alt="Active Directory Users and Computers console" width="700"><br> <b>Image 4 – Active Directory Users and Computers</b> </p> 
 
-<p align="center"> <img src="screenshots/ad-ds.png" alt="AD DS view in Server Manager" width="600"><br> <b>Image 5 – AD DS Management View</b> </p>
+<p align="center"> <img src="screenshots/ad-ds.png" alt="AD DS view in Server Manager" width="700"><br> <b>Image 5 – AD DS Management View</b> </p>
 
 
 ## 3. DC1 promotion as Domain Controller
@@ -42,7 +42,7 @@ A new forest was created using the fully qualified domain name, which establishe
 
 Once restarted, DC1 became the central authority for authentication and DNS resolution within the 192.168.45.0/24 network segment, marking the completion of the domain controller setup.
 
-<p align="center"> <img src="screenshots/dcs.png" alt="Security Compliance Toolkit Command Syntax" width="600"><br> <b>Screenshot 4 – Domain Controller Summary</b> </p>
+<p align="center"> <img src="screenshots/dcs.png" alt="Security Compliance Toolkit Command Syntax" width="600"><br> <b>Image 6 – Domain Controller Summary</b> </p>
 
 
 
@@ -53,25 +53,31 @@ Following the successful configuration of DC1, the Windows 10 workstation was pr
 
 Once the network connectivity was confirmed, MS1 was joined to the domain via the System Properties interface. Authentication was carried out using the domain administrator credentials, validating the connection and enabling domain-based login. The workstation was successfully integrated into the domain, gaining access to centralized authentication, Group Policy management, and future administrative oversight through Active Directory.
 
-<p align="center"> <img src="screenshots/ms1di.png" alt="Security Compliance Toolkit Command Syntax" width="600"><br> <b>Screenshot 4 – MS1 Client Domain Info</b> </p>
+<p align="center"> <img src="screenshots/ms1di.png" alt="Security Compliance Toolkit Command Syntax" width="600"><br> <b>Image 7 – MS1 Client Domain Info</b> </p>
 
 
 ## 5. Systems verification
 
 Once both systems were configured, network connectivity and authentication functionality were verified. Basic connectivity tests confirmed that DC1 responded to ICMP requests from MS1 and vice versa , validating the static IP configuration and DNS resolution path. The successful login using a domain account demonstrated that authentication requests were properly routed through the domain controller.
 
-<p align="center"> <img src="screenshots/sysver11.png" alt="Security Compliance Toolkit Command Syntax" width="600"><br> <b>Screenshot 4 – Connectivity test from MS1 Client</b> </p>
+<p align="center"> <img src="screenshots/sysver11.png" alt="Security Compliance Toolkit Command Syntax" width="600"><br> <b>Image 8 – Connectivity test from MS1 Client</b> </p>
 
-<p align="center"> <img src="screenshots/sysver22.png" alt="Security Compliance Toolkit Command Syntax" width="600"><br> <b>Screenshot 4 – Connectivity test from DC1 Controller</b> </p>
+<p align="center"> <img src="screenshots/sysver22.png" alt="Security Compliance Toolkit Command Syntax" width="600"><br> <b>Image 9 – Connectivity test from DC1 Controller</b> </p>
 
 At this stage, both the administrative server and the client workstation were operating within the same logical network, with DC1 handling directory services and MS1 functioning as an authenticated member system. This verification step ensured that all core services, including DNS, were properly synchronized and operational.
 
 ## 6. Compliance and Baseline Analysis
 
-After confirming system functionality, the Microsoft Security Compliance Toolkit was employed to perform a baseline configuration analysis. This toolkit allowed a comprehensive evaluation of both DC1 and MS1 in comparison with Microsoft’s recommended security standards.
+After confirming system functionality, the Microsoft Security Compliance Toolkit—specifically the Policy Analyzer utility—was employed to perform a detailed baseline configuration analysis. This toolkit enabled a comprehensive evaluation of both DC1 and MS1 against Microsoft’s recommended security standards.
 
-A temporary NAT-enabled network adapter was added to the virtual machines to facilitate system updates and baseline downloads. Windows Defender was activated and updated, followed by a full system update to align both systems with current security definitions. Using the toolkit, baseline configurations were imported and compared against the Microsoft reference baselines for Windows Server 2016 and Windows 10. The comparative analysis provided insights into configuration gaps, highlighting key differences between the default setup and Microsoft’s secure baseline recommendations.
+A temporary NAT-enabled network adapter was added to the virtual machines to facilitate system updates and baseline downloads. Windows Defender was then activated and updated, followed by a full system update to align both systems with the most recent security definitions. 
 
-<p align="center"> <img src="screenshots/dcs.png" alt="Security Compliance Toolkit Command Syntax" width="600"><br> <b>Screenshot 4 – Domain Controller Summary</b> </p>
+<p align="center"> <img src="screenshots/pa-cmd.png" alt="Security Compliance Toolkit Command Syntax" width="900"><br> <b>Image 10 – Command prompt in PolicyAnalyzer directory</b> </p>
+
+Using Policy Analyzer, the imported baseline configurations were compared against Microsoft’s reference baselines for Windows Server 2016 and Windows 10. The resulting analysis provided clear visibility into configuration discrepancies, highlighting key differences between the current system settings and Microsoft’s secure baseline recommendations.
+
+<p align="center"> <img src="screenshots/pa-ms1.png" alt="Security Compliance Toolkit Command Syntax" width="900"><br> <b>Image 11 – Policy Viewer / Analyzer for MS1</b> </p>
+
+<p align="center"> <img src="screenshots/pa-dc1.png" alt="Security Compliance Toolkit Command Syntax" width="900"><br> <b>Image 12 – Policy Viewer / Analyzer for DC1</b> </p>
 
 Upon completing the analysis, new system snapshots were taken to preserve the stable and verified configuration state. This step ensured that future modifications could be safely reverted if necessary. 
