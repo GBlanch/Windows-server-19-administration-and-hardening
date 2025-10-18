@@ -81,3 +81,6 @@ Using Policy Analyzer, the imported baseline configurations were compared agains
 <p align="center"> <img src="screenshots/pa-dc1.png" alt="Security Compliance Toolkit Command Syntax" width="900"><br> <b>Image 12 – Policy Viewer / Analyzer for DC1</b> </p>
 
 Upon completing the analysis, new system snapshots were taken to preserve the stable and verified configuration state. This step ensured that future modifications could be safely reverted if necessary. 
+
+
+Back to [1_Windows-Server-Administration](README.md)
