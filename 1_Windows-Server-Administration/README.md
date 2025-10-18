@@ -1,6 +1,6 @@
-### 📁 Contents
+###  Contents
 
-- [Domain Controller Configuration](Domain_Controller_Configuration.md)  
+- [Domain Controller Configuration](Domain_Controller_Config.md)  
   Initial setup and promotion of the primary domain controller (DC1).
 
 - [Active Directory and GPOs](Active_Directory_and_GPOs.md)  
