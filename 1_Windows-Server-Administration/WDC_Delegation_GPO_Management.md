@@ -12,7 +12,7 @@ The objective was to assign specific administrative responsibilities through sec
 A logical domain structure was implemented to organize administrative boundaries. The domain included organizational units named Staff, Marketing, Sales, IT, and HelpDesk. 
 
 
-<p align="center"> <img src="screenshots/wdc-gpo-0.png" alt="VMware Inventory View" width="300"><br> <b>Image 1 – AD delegation and GPO relationship overview</b> </p>
+<p align="center"> <img src="screenshots/wdc-gpo-0.png" alt="VMware Inventory View" width="400"><br> <b>Image 1 – AD delegation and GPO relationship overview</b> </p>
 
 These units defined where group policies and delegated permissions would apply, ensuring that administrative rights were scoped only to relevant containers. The structure aimed to establish a clear hierarchy suitable for role-based access control and subsequent delegation of permissions.
 
