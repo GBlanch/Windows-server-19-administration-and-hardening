@@ -45,3 +45,16 @@ After all changes were saved, the configuration effectively tied the DNSOps role
 After completing the configuration files, the next phase involved registering and testing the JEA endpoint. Still working on DC1, the Administrator created a new security group named DNSOps in Active Directory and added the delegated user account as a member. This group would later be associated with the JEA configuration, allowing only its members to connect and execute DNS management commands.
 
 A PowerShell session was opened to register the configuration file as a new JEA endpoint. Using the command `Register-PSSessionConfiguration -Name DNSOps -Path .\DNSOps.pssc`, the Administrator linked the previously defined session configuration to the system. Once the registration completed successfully, the WinRM service was restarted with `Restart-Service WinRM` to apply the new endpoint configuration. The command `Get-PSSessionConfiguration` was then executed to confirm that the DNSOps endpoint was active and available.
+
+# 5. Testing Remote JEA Connections
+
+With the JEA endpoint registered and verified, the next step was to confirm that the role restrictions functioned as expected during remote PowerShell sessions. On WS1, the delegated user connected to DC1 using the command `Enter-PSSession -ComputerName DC1 -ConfigurationName DNSOps`. Once connected, the command `(Get-Command).count` was executed to verify that only a limited set of cmdlets was available, corresponding to those explicitly defined in the DNSOps role capability file.
+
+The connection successfully permitted DNS-related commands, such as `Get-DNSServerResourceRecord`, `Add-DNSServerResourceRecord`, and `Clear-DNSServerCache`. Each of these operations ran without errors, confirming that the role capability configuration was functioning correctly and providing access solely to DNS management tasks.
+
+Next, two common administrative commands — `Get-Service` and `Restart-Service` — were tested intentionally to verify restriction enforcement. Both commands returned an error message indicating that they were not recognized or allowed within the session. This demonstrated that the JEA endpoint successfully prevented users from running unauthorized cmdlets that were not part of the VisibleFunctions list defined in the DNSOps role capability file.
+
+
+<p align="center"> <img src="screenshots/jea-.png" alt="VMware Inventory View" width="600"><br> <b>Image 2 – TBC</b> </p>
+
+Through this verification, the lab confirmed that the JEA configuration enforced the least-privilege model effectively, allowing only the required DNS management capabilities while denying all other administrative operations.
