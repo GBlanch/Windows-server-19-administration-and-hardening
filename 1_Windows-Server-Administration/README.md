@@ -12,6 +12,9 @@
 - [WDC_Delegation_GPO_Managements](WDC_Delegation_GPO_Management.md)  
   Windows Domain Controller – Delegation and GPO Management
 
+- [LAPS](LAPS.md)  
+  Local Administrator Password Solution (LAPS)
+
 
 
 
